@@ -1,33 +1,21 @@
 <template>
   <div style="height: 75vh; width: 100%;">
-    <l-map
-      v-model="zoom"
-      v-model:zoom="zoom"
-      :center="[33.5265212,-86.777367]"
-      @move="log('move')"
-    >
-      <l-tile-layer
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      ></l-tile-layer>
+    <l-map v-model="zoom" v-model:zoom="zoom" :center="[33.5265212, -86.777367]" @move="log('move')">
+      <l-tile-layer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"></l-tile-layer>
       <l-control-layers />
       <l-marker :lat-lng="[0, 0]" draggable @moveend="log('moveend')">
-        <l-tooltip>
-          lol
-        </l-tooltip>
+        <l-tooltip>lol</l-tooltip>
       </l-marker>
 
       <l-marker :lat-lng="[47.41322, -1.219482]">
         <l-icon :icon-url="iconUrl" :icon-size="iconSize" />
       </l-marker>
-      <l-marker :lat-lng="[33.5265212,-86.777367]">
-        <l-popup>
-          lol
-        </l-popup>      </l-marker>
+      <l-marker :lat-lng="[33.5265212, -86.777367]">
+        <l-popup>MRF: Birmingham Recycling and Recovery</l-popup>
+      </l-marker>
 
       <l-marker :lat-lng="[50, 50]" draggable @moveend="log('moveend')">
-        <l-popup>
-          lol
-        </l-popup>
+        <l-popup>lol</l-popup>
       </l-marker>
 
       <l-polyline
@@ -67,9 +55,7 @@
           [46.241487, -1.090357],
         ]"
       >
-        <l-popup>
-          lol
-        </l-popup>
+        <l-popup>lol</l-popup>
       </l-rectangle>
     </l-map>
   </div>
