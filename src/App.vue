@@ -1,19 +1,19 @@
 <template>
   <v-app>
     <v-main>
-      <HelloWorld/>
+      <MRFs/>
     </v-main>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import MRFs from './components/MRFs.vue'
 
 export default {
   name: 'App',
 
   components: {
-    HelloWorld,
+    MRFs,
   },
 
   data: () => ({
