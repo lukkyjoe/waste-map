@@ -2,17 +2,11 @@
   <div style="height: 75vh; width: 100%;">
     <l-map v-model="zoom" v-model:zoom="zoom" :center="[33.5265212, -86.777367]" @move="log('move')">
       <l-tile-layer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"></l-tile-layer>
-      <l-marker :lat-lng="[0, 0]" draggable @moveend="log('moveend')">
-        <l-tooltip>lol</l-tooltip>
-      </l-marker>
       <!-- <l-marker :lat-lng="[33.5265212, -86.777367]" :icon="icon">
         <l-popup>MRF: Birmingham Recycling and Recovery</l-popup>
       </l-marker> -->
       <l-marker v-for="facility in renderedFacilities" :lat-lng="facility['lat-lng']" :icon="facility.icon">
         <l-popup>{{facility.name}}</l-popup>
-      </l-marker>
-      <l-marker :lat-lng="[50, 50]" draggable @moveend="log('moveend')">
-        <l-popup>lol</l-popup>
       </l-marker>
     </l-map>
   </div>
