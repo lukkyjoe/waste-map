@@ -5,8 +5,11 @@
       <l-marker :lat-lng="[0, 0]" draggable @moveend="log('moveend')">
         <l-tooltip>lol</l-tooltip>
       </l-marker>
-      <l-marker :lat-lng="[33.5265212, -86.777367]" :icon="icon">
+      <!-- <l-marker :lat-lng="[33.5265212, -86.777367]" :icon="icon">
         <l-popup>MRF: Birmingham Recycling and Recovery</l-popup>
+      </l-marker> -->
+      <l-marker v-for="facility in renderedFacilities" :lat-lng="facility['lat-lng']" :icon="facility.icon">
+        <l-popup>{{facility.name}}</l-popup>
       </l-marker>
       <l-marker :lat-lng="[50, 50]" draggable @moveend="log('moveend')">
         <l-popup>lol</l-popup>
@@ -48,6 +51,24 @@ export default {
       zoom: 3,
       iconWidth: 25,
       iconHeight: 40,
+      facilities: [
+        {
+          name: 'Birmingham Recycling and Recovery',
+          type: 'MRF',
+          'lat-lng': [33.5265212, -86.777367]
+        },
+        {
+          name: 'City of Conway',
+          type: 'MRF',
+          'lat-lng': [35.0887, -92.4421]
+        },
+        {
+          name: 'City of Glendale MRF',
+          type: 'MRF',
+          'lat-lng': [33.5387, -112.1860]
+        }
+
+      ],
       icon: icon({
         iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
         shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
@@ -59,12 +80,19 @@ export default {
     };
   },
   computed: {
-    iconUrl() {
-      return `https://placekitten.com/${this.iconWidth}/${this.iconHeight}`;
-    },
     iconSize() {
       return [this.iconWidth, this.iconHeight];
     },
+    renderedFacilities() {
+      return this.facilities.map(facility => {
+        const icon = this.icon
+        return {
+          icon,
+          ...facility
+        }
+
+      })
+    }
   },
   methods: {
     log(a) {
