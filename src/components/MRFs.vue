@@ -11,7 +11,7 @@
     </l-map>
   </div>
 </template>
-<script>
+<script lang="ts">
 import {
   LMap,
   LIcon,
@@ -26,8 +26,9 @@ import {
 } from "@vue-leaflet/vue-leaflet";
 import "leaflet/dist/leaflet.css";
 import { icon } from 'leaflet'
+import { defineComponent } from "vue";
 
-export default {
+export default defineComponent({
   components: {
     LMap,
     LIcon,
@@ -57,7 +58,7 @@ export default {
           'lat-lng': [35.0887, -92.4421]
         },
         {
-          name: 'City of Glendale MRF',
+          name: 'City of Glendale',
           type: 'MRF',
           'lat-lng': [33.5387, -112.1860]
         }
@@ -89,9 +90,9 @@ export default {
     }
   },
   methods: {
-    log(a) {
+    log(a: string) {
       console.log(a);
     },
   },
-};
+})
 </script>

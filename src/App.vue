@@ -20,10 +20,11 @@
   </v-app>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from 'vue'
 import MRFs from './components/MRFs.vue'
 
-export default {
+export default defineComponent({
   name: 'App',
 
   components: {
@@ -31,7 +32,8 @@ export default {
   },
 
   data: () => ({
-    //
+    ex4: 'red',
+    ex5: 'red'
   }),
-}
+})
 </script>
