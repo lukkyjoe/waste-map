@@ -29,7 +29,7 @@ import { icon } from 'leaflet'
 import { defineComponent } from "vue";
 import Facility from '../types/Facility'
 
-interface Foo {
+interface ComponentData {
   zoom: number,
   iconWidth: number,
   iconHeight: number,
@@ -50,7 +50,7 @@ export default defineComponent({
     LPolygon,
     LRectangle,
   },
-  data(): Foo {
+  data(): ComponentData {
     return {
       zoom: 3,
       iconWidth: 25,
@@ -59,6 +59,7 @@ export default defineComponent({
         {
           name: 'Birmingham Recycling and Recovery',
           type: 'MRF',
+          operator: '',
           'lat-lng': [33.5265212, -86.777367]
         },
         {
