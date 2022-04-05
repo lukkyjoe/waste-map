@@ -1,12 +1,21 @@
 <template>
   <div style="height: 75vh; width: 100%;">
-    <l-map v-model="zoom" v-model:zoom="zoom" :center="[33.5265212, -86.777367]" @move="log('move')">
+    <l-map
+      v-model="zoom"
+      v-model:zoom="zoom"
+      :center="[33.5265212, -86.777367]"
+    >
       <l-tile-layer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"></l-tile-layer>
-      <!-- <l-marker :lat-lng="[33.5265212, -86.777367]" :icon="icon">
-        <l-popup>MRF: Birmingham Recycling and Recovery</l-popup>
-      </l-marker> -->
-      <l-marker v-for="facility in renderedFacilities" :lat-lng="facility['lat-lng']" :icon="facility.icon">
-        <l-popup>{{facility.name}}</l-popup>
+      <l-marker
+        v-for="facility in renderedFacilities"
+        :lat-lng="facility['lat-lng']"
+        :icon="facility.icon"
+      >
+        <l-popup>
+          <div>name: {{ facility.name }}</div>
+          <div>type: {{ facility.type }}</div>
+          <div v-if="facility.operator">operator: {{ facility.operator }}</div>
+        </l-popup>
       </l-marker>
     </l-map>
   </div>
@@ -37,6 +46,10 @@ interface ComponentData {
   icon: any
 }
 
+interface RenderedFacility extends Facility {
+  icon: any
+}
+
 export default defineComponent({
   components: {
     LMap,
@@ -59,7 +72,7 @@ export default defineComponent({
         {
           name: 'Birmingham Recycling and Recovery',
           type: 'MRF',
-          operator: '',
+          operator: 'Birmingham',
           'lat-lng': [33.5265212, -86.777367]
         },
         {
@@ -69,7 +82,7 @@ export default defineComponent({
         },
         {
           name: 'City of Glendale',
-          type: 'MRF',
+          type: 'Manufacturing',
           'lat-lng': [33.5387, -112.1860]
         }
 
@@ -88,21 +101,18 @@ export default defineComponent({
     iconSize() {
       return [this.iconWidth, this.iconHeight];
     },
-    renderedFacilities() {
-      return this.facilities.map(facility => {
+    renderedFacilities(): RenderedFacility[] {
+      return this.facilities.map((facility: RenderedFacility) => {
         const icon = this.icon
         return {
           icon,
-          ...facility
+          ...facility,
         }
 
       })
     }
   },
   methods: {
-    log(a: string) {
-      console.log(a);
-    },
   },
 })
 </script>

@@ -1,21 +1,9 @@
 <template>
   <v-app>
     <v-main>
-      <MRFs/>
-      <v-checkbox
-        v-model="ex4"
-        label="MRFs"
-        color="green"
-        value="red"
-      >
-      </v-checkbox>
-      <v-checkbox
-        v-model="ex5"
-        label="manufacturers"
-        color="blue"
-        value="red"
-      >
-      </v-checkbox>
+      <MRFs />
+      <span>Included categories</span>
+      <v-checkbox v-for="box in checkboxes" v-model="box.checked" :label="box.label"></v-checkbox>
     </v-main>
   </v-app>
 </template>
@@ -32,8 +20,7 @@ export default defineComponent({
   },
 
   data: () => ({
-    ex4: 'red',
-    ex5: 'red'
+    checkboxes: [{label: 'MRF', checked: true}, {label: 'Manufacturer', checked: true}, {label: 'Collection', checked: true}]
   }),
 })
 </script>
