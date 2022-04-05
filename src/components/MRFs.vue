@@ -27,6 +27,15 @@ import {
 import "leaflet/dist/leaflet.css";
 import { icon } from 'leaflet'
 import { defineComponent } from "vue";
+import Facility from '../types/Facility'
+
+interface Foo {
+  zoom: number,
+  iconWidth: number,
+  iconHeight: number,
+  facilities: Facility[],
+  icon: any
+}
 
 export default defineComponent({
   components: {
@@ -41,7 +50,7 @@ export default defineComponent({
     LPolygon,
     LRectangle,
   },
-  data() {
+  data(): Foo {
     return {
       zoom: 3,
       iconWidth: 25,
