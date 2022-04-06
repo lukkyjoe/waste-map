@@ -82,7 +82,7 @@ export default defineComponent({
         },
         {
           name: 'City of Glendale',
-          type: 'Manufacturing',
+          type: 'Manufacturer',
           'lat-lng': [33.5387, -112.1860]
         }
 
@@ -110,7 +110,10 @@ export default defineComponent({
         }
 
       })
-    }
+    },
+    // filteredRenderedFacilities(): RenderedFacility[] {
+      
+    // }
   },
   methods: {
   },
