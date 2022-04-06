@@ -34,7 +34,7 @@ import {
   LRectangle,
 } from "@vue-leaflet/vue-leaflet";
 import "leaflet/dist/leaflet.css";
-import { icon } from 'leaflet'
+import { icon as LeafletIcon } from 'leaflet'
 import { defineComponent } from "vue";
 import Facility from '../types/Facility'
 
@@ -43,11 +43,16 @@ interface ComponentData {
   iconWidth: number,
   iconHeight: number,
   facilities: Facility[],
-  icon: any
 }
 
 interface RenderedFacility extends Facility {
   icon: any
+}
+
+const FACILITY_ICON_URL_MAP = {
+  'MRF': 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+  'Manufacturer': 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-gold.png',
+  'Collection': 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png'
 }
 
 export default defineComponent({
@@ -62,6 +67,9 @@ export default defineComponent({
     LPolyline,
     LPolygon,
     LRectangle,
+  },
+  props: {
+    selectedFacilityTypes: Array,
   },
   data(): ComponentData {
     return {
@@ -86,15 +94,7 @@ export default defineComponent({
           'lat-lng': [33.5387, -112.1860]
         }
 
-      ],
-      icon: icon({
-        iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
-        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-        iconSize: [25, 41],
-        iconAnchor: [12, 41],
-        popupAnchor: [1, -34],
-        shadowSize: [41, 41]
-      })
+      ]
     };
   },
   computed: {
@@ -102,15 +102,26 @@ export default defineComponent({
       return [this.iconWidth, this.iconHeight];
     },
     renderedFacilities(): RenderedFacility[] {
-      return this.facilities.map((facility: RenderedFacility) => {
-        const icon = this.icon
+      const filteredFacilities = this.facilities.filter(({type}) => this.selectedFacilityTypesStrings.includes(type))
+      return filteredFacilities.map((facility: RenderedFacility) => {
+
+        const icon = LeafletIcon({
+        iconUrl: FACILITY_ICON_URL_MAP[facility.type],
+        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41]
+      })
         return {
           icon,
           ...facility,
         }
-
       })
     },
+    selectedFacilityTypesStrings() {
+      return this.selectedFacilityTypes.filter(({checked}) => checked).map(({label}) => label)
+    }
     // filteredRenderedFacilities(): RenderedFacility[] {
       
     // }
