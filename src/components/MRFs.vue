@@ -100,7 +100,7 @@ export default defineComponent({
   },
   mounted() {
     console.log('inside mounted hook')
-    axios.post('https://waste-infrastructure-map.netlify.app/.netlify/functions/hello', {foo: 'bar'}).then(res => console.log(res)).catch(err => console.error(err))
+    axios('/.netlify/functions/hello').then(({data}) => this.facilities = data).catch(err => console.error(err))
   },
   computed: {
     iconSize() {
