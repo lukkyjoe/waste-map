@@ -37,6 +37,7 @@ import "leaflet/dist/leaflet.css";
 import { icon as LeafletIcon } from 'leaflet'
 import { defineComponent } from "vue";
 import Facility from '../types/Facility'
+import axios from 'axios'
 
 interface ComponentData {
   zoom: number,
@@ -96,6 +97,10 @@ export default defineComponent({
 
       ]
     };
+  },
+  mounted() {
+    console.log('inside mounted hook')
+    axios.post('https://waste-infrastructure-map.netlify.app/.netlify/functions/hello', {foo: 'bar'}).then(res => console.log(res)).catch(err => console.error(err))
   },
   computed: {
     iconSize() {
